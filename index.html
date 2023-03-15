@@ -9,8 +9,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Wedding Invitation&mdash; Mariano & Cecilia</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="traynerZero" />
-
 
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -42,9 +40,6 @@
 	
 	<link rel="stylesheet" href="css/style.css">
 
-	<link rel="stylesheet" href="css/modal.css">
-
-
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -54,6 +49,8 @@
 	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 	<script>
 		const firebaseConfig = {
 		  apiKey: "AIzaSyBiNVh042p8cseqVE-Z8f4jliV4KsbZntU",
@@ -77,9 +74,27 @@
 			);
 			}
 
+			function validateEmail(mail) 
+		{
+			if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+			{
+				return (true)
+			}
+			return (false)
+		}
+
 		function writeUserData() {
 			var name = document.getElementById("name_").value;
 			var email = document.getElementById("email_").value;
+			var msg = document.getElementById("description_").value;
+
+			$('#check').hide();
+			$('#loader').show();
+
+			if(!validateEmail(email)){
+				alert("Please use a valid email address");
+				return;
+			}
 
 			if(name == null || name == ""){
 				alert("Please input name");
@@ -87,7 +102,7 @@
 			}
 
 			if(email == null || email == ""){
-				alert("Please input email");
+				alert("Please input email address");
 				return;
 			}
 
@@ -95,7 +110,13 @@
 			firebase.database().ref('users/' + userId).set({
 				username: name,
 				email: email,
+				message: msg
 			});
+
+			setTimeout(function(){
+				$('#loader').hide();
+				$('#confirm').show();
+			},4000);
 
 		}
 	</script>
@@ -106,7 +127,7 @@
 	
 		<div class="fh5co-hero" data-section="home">
 			<div class="fh5co-overlay"></div>
-			<div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url(images/cover_bg_1.jpg);">
+			<div class="fh5co-cover text-center">
 				<div class="display-t">
 					<div class="display-tc">
 						<div class="container">
@@ -130,12 +151,12 @@
 				<div class="row row-bottom-padded-md animate-box">
 					<div class="col-md-6 col-md-offset-3 text-center">
 						<div class="col-md-5 col-sm-5 col-xs-5 nopadding">
-							<img src="images/groom.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+							<img src="images/hero_1.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 							<h3>Mariano Lozano III</h3>
 						</div>
 						<div class="col-md-2 col-sm-2 col-xs-2 nopadding"><h2 class="amp-center"><i class="icon-heart"></i></h2></div>
 						<div class="col-md-5 col-sm-5 col-xs-5 nopadding">
-							<img src="images/bride.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+							<img src="images/hero_2.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 							<h3>Ma Cecilia Arevalo</h3>
 						</div>
 					</div>
@@ -162,21 +183,21 @@
 				<div class="row row-bottom-padded-md">
 					<div class="col-md-6 text-center animate-box">
 						<div class="wedding-events">
-							<div class="ceremony-bg" style="background-image: url(images/wed-ceremony.jpg);"></div>
+							<div class="ceremony-bg" style="background-image: url(https://haciendasolange.com.ph/Images/Pages/PhotosAndVideos/Venue/13.png);"></div>
 							<div class="desc">
 								<h3>Wedding Ceremony</h3>
-								<p><strong>Sunday, July 30, 2023, 3.00 PM - 4.00PM @ Hacienda Solange</strong></p>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+								<p><strong>Sunday, July 30, 2023, 3.00 PM - 4.00PM @ <a href="https://haciendasolange.com.ph/">Hacienda Solange</a></strong></p>
+								<p>Hacienda Solange is an exclusive events venue nestled in Alfonso, Cavite, just a stone’s throw away from the crisp fresh winds of Tagaytay City. Surrounded by trees, the garden venue is sweet and romantic by day, and elegant and stylish by night.</p>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6 text-center animate-box">
 						<div class="wedding-events">
-							<div class="ceremony-bg" style="background-image: url(images/wed-party.jpg);"></div>
+							<div class="ceremony-bg" style="background-image: url(https://haciendasolange.com.ph/Images/Hacienda%20Solange/Hacienda%20Solange%20Dining%203.jpg);"></div>
 							<div class="desc">
 								<h3>Wedding Party</h3>
-								<p><strong>Sunday, July 30, 2023, 4.00 PM - 7.00PM @ Hacienda Solange</strong></p>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+								<p><strong>Sunday, July 30, 2023, 4.00 PM - 7.00PM @ <a href="https://haciendasolange.com.ph/">Hacienda Solange</a></strong></p>
+								<p>Head to the covered venue afterwards with the stunning Estrella’s Garden ceiling treatment. Choose between Continental and Asian gastronomical delights, between the fellowship of a buffet to the solemn elegance of a sit-down service.</p>
 							</div>
 						</div>
 					</div>
@@ -199,6 +220,110 @@
 
 		<div id="fh5co-guest">
 			<div class="container text-center">
+				<div class="row animate-box">
+					
+					<div  class="heading-section">
+						<h2 style="font-size: 64px;">Entourage</h2>
+					</div>
+
+					<div class="row animate-box">
+						<div class="col-lg-6 border-right">
+							<div class="row animate-box">
+								<div class="text-center heading-section">
+									<h2>Groom's Parents</h2>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 text-center animate-box">
+									<div class="groom-men">
+										<p style="font-size:24px">Mr. Mariano Lozano Jr.</p>
+									</div>
+								</div>
+								<div class="col-md-6 text-center animate-box">
+									<div class="groom-men">
+										<p style="font-size:24px">Mrs. Nanie Lozano</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="row animate-box">
+								<div class="col-md-offset-2 text-center heading-section">
+									<h2>Bride's Parents</h2>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 text-center animate-box">
+									<div class="groom-men">
+										<p style="font-size:24px">Mr. Manuel De Guzman</p>
+									</div>
+								</div>
+								<div class="col-md-6 text-center animate-box">
+									<div class="groom-men">
+										<p style="font-size:24px">Mrs. Elizabeth Arevalo</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div  class="heading-section">
+						<h2>Principal Sponsors</h2>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="text-center animate-box">
+								<div class="groom-men">
+									<p style="font-size:24px; padding:5px;">Mr. Ariel Tosio &nbsp;&nbsp;  &  &nbsp;&nbsp;  Mrs. Blesilda B. Cueto</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="text-center animate-box">
+								<div class="groom-men">
+									<p style="font-size:24px; padding:5px;">Mr. Renato Jarabase &nbsp;&nbsp;  &  &nbsp;&nbsp;  Mrs. Dorcas Calingacion</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="text-center animate-box">
+								<div class="groom-men">
+									<p style="font-size:24px; padding:5px;">Mr. Leonardo Sand Diego &nbsp;&nbsp;  &  &nbsp;&nbsp;  Mrs. Mary Jane Banag</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="text-center animate-box">
+								<div class="groom-men">
+									<p style="font-size:24px; padding:5px;">Mr. Michael Soria &nbsp;&nbsp;  &  &nbsp;&nbsp;  Mrs. Cristina Herrera</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="text-center animate-box">
+								<div class="groom-men">
+									<p style="font-size:24px; padding:5px;">Mr. Jeffrey Flaviano &nbsp;&nbsp;  &  &nbsp;&nbsp;  Mrs. Theresa Flaviano</p>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="text-center animate-box">
+								<div class="groom-men">
+									<p style="font-size:24px; padding:5px;">Mr. Jonas Dawinan &nbsp;&nbsp;  &  &nbsp;&nbsp;  Mrs. Karlen T. Soriano</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div  class="heading-section">
+					<h2>Secondary Sponsors</h2>
+				</div>
 				<div class="row animate-box">
 					<div class="col-lg-6 border-right">
 						<div class="row animate-box">
@@ -250,7 +375,7 @@
 						<div class="row">
 							<div class="col-md-6 text-center animate-box">
 								<div class="groom-men">
-									<p style="font-size:24px">Mr. Kevin Romero</p>
+									<p style="font-size:24px">Mr. Cedrick Arevalo</p>
 								</div>
 							</div>
 							<div class="col-md-6 text-center animate-box">
@@ -269,7 +394,7 @@
 						<div class="row">
 							<div class="col-md-6 text-center animate-box">
 								<div class="groom-men">
-									<p style="font-size:24px">Mr. Remigio Sampang</p>
+									<p style="font-size:24px">Mr. Remigio Joseph Sampang</p>
 								</div>
 							</div>
 							<div class="col-md-6 text-center animate-box">
@@ -305,12 +430,7 @@
 						<h2>Groom's men</h2>
 					</div>
 				</div>
-				<div class="row row-bottom-padded-lg">
-					<div class="col-md-3 text-center animate-box">
-						<div class="groom-men">
-							<p style="font-size:24px">Mr. Cedrick Arevalo</p>
-						</div>
-					</div>
+				<div class="row">
 					<div class="col-md-3 text-center animate-box">
 						<div class="groom-men">
 							<p style="font-size:24px">Mr. Roland Año</p>
@@ -346,11 +466,6 @@
 				<div class="row">
 					<div class="col-md-3 text-center animate-box">
 						<div class="groom-men">
-							<p style="font-size:24px">Ms. Cristina Arevalo</p>
-						</div>
-					</div>
-					<div class="col-md-3 text-center animate-box">
-						<div class="groom-men">
 							<p style="font-size:24px">Ms. Irish Dinglasa</p>
 						</div>
 					</div>
@@ -384,8 +499,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 text-center animate-box">
-									<p class="text-center" style="font-size:24px">Nathaniel Ace Cruz</p>
+							<div class="text-center animate-box" style="text-align: center;">
+									<p style="font-size:24px;">Nathaniel Ace Cruz</p>
 							</div>
 						</div>
 					</div>
@@ -396,7 +511,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 text-center animate-box">
+							<div class="text-center animate-box">
 									<p class="text-center" style="font-size:24px">Mariano Timothy Arroja</p>
 							</div>
 						</div>
@@ -408,7 +523,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 text-center animate-box">
+							<div class="text-center animate-box">
 									<p class="text-center" style="font-size:24px">Carl Daniel Arevalo</p>
 							</div>
 						</div>
@@ -418,34 +533,56 @@
 			</div>
 		</div>
 
-		<div id="fh5co-started" style="background-image:url(images/cover_bg_2.jpg);" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-			<div class="container">
+		<div id="fh5co-started" style="background-image:url(images/cover_bg_2.jpg);">
+			<div class="overlay"></div>
+			<div id="check" class="container">
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section">
 						<h2>Are You Attending?</h2>
-						<p>Please Fill-up the form to notify you that you're attending. Thanks.
+						<p>Please Fill-up the form to notify us that you're attending. Thanks.
 					</div>
 				</div>
 				<div class="row animate-box">
 					<div class="col-md-10 col-md-offset-1">
 						<form class="form-inline">
-							<div class="col-md-4 col-sm-4">
+							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
 									<label for="name" class="sr-only">Name</label>
 									<input type="name" class="form-control" id="name_" placeholder="Name">
 								</div>
 							</div>
-							<div class="col-md-4 col-sm-4">
+							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
 									<label for="email" class="sr-only">Email</label>
 									<input type="email" class="form-control" id="email_" placeholder="Email">
 								</div>
+								<div class="form-group">
+									<label for="description" class="sr-only">Message</label>
+									<textarea type="description" class="form-control" id="description_" placeholder="Message"></textarea>
+								</div>
 							</div>
-							<div class="col-md-4 col-sm-4">
+							<div class="col-md-12 col-sm-12">
 								<button onclick="writeUserData()" type="button" class="btn btn-primary btn-block">I am Attending</button>
 							</div> 
 						</form>
+					</div>
+				</div>
+			</div>
+
+			<div id="loader" class="container" style="display:none">
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section">
+							<br>
+							<br>
+							<h2>Please wait..</h2>
+					</div>
+				</div>
+			</div>
+
+			<div id="confirm" class="container" style="display:none">
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section">
+						<h2>Thank you for accepting our invitation! See you on our wedding!</h2>
 					</div>
 				</div>
 			</div>
