@@ -537,6 +537,7 @@ figure {
 #fh5co-when-where,
 #fh5co-guest,
 #fh5co-gallery,
+#fh5co-details,
 .fh5co-content-section {
   padding: 7em 0;
 }
@@ -550,6 +551,7 @@ figure {
   #fh5co-when-where,
   #fh5co-guest,
   #fh5co-gallery,
+  #fh5co-details,
   .fh5co-content-section {
     padding: 4em 0;
   }
