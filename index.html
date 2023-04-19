@@ -89,12 +89,12 @@
 			var email = document.getElementById("email_").value;
 			var msg = document.getElementById("description_").value;
 
-			$('#check').hide();
-			$('#loader').show();
 
-			if(!validateEmail(email)){
-				alert("Please use a valid email address");
-				return;
+			if(email != null && email != ""){
+				if(!validateEmail(email)){
+					alert("Please use a valid email address");
+					return;
+				}	
 			}
 
 			if(name == null || name == ""){
@@ -102,10 +102,8 @@
 				return;
 			}
 
-			if(email == null || email == ""){
-				alert("Please input email address");
-				return;
-			}
+			$('#check').hide();
+			$('#loader').show();
 
 			var userId = uuidv4();
 			firebase.database().ref('users/' + userId).set({
@@ -240,7 +238,7 @@
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
 									<label for="email" class="sr-only">Email</label>
-									<input type="email" class="form-control" id="email_" placeholder="Email">
+									<input type="email" class="form-control" id="email_" placeholder="Email (optional)">
 								</div>
 								<div class="form-group">
 									<label for="description" class="sr-only">Message</label>
